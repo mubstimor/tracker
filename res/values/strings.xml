@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Tracker</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="logo_description">This is the main application logo.</string>
+    <string name="title_activity_view_routes">View Routes</string>
+    <string name="title_activity_first_time">Welcome</string>
+    <string name="github">GitHub</string>
+    <string name="github_label">SlidingMenu on GitHub</string>
+    <string name="about">About</string>
+    <string name="licenses">Licenses</string>
+    <string name="contact">Contact</string>
+
+</resources>
