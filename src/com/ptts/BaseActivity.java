@@ -8,6 +8,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import com.ptts.fragments.MenuListFragment;
 
 public class BaseActivity extends SlidingFragmentActivity {
 
@@ -28,7 +29,7 @@ public class BaseActivity extends SlidingFragmentActivity {
 		setBehindContentView(R.layout.menu_frame);
 		if (savedInstanceState == null) {
 			FragmentTransaction t = this.getSupportFragmentManager().beginTransaction();
-			mFrag = new SampleListFragment();
+			mFrag = new MenuListFragment();
 			t.replace(R.id.menu_frame, mFrag);
 			t.commit();
 		} else {

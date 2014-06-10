@@ -47,10 +47,7 @@ public class FetchRouteTask extends AsyncTask<String, Void, JSONArray> {
     @Override
     protected void onPostExecute(JSONArray todoJsonArray) {
         List<RouteItem> routeItems = new ArrayList<RouteItem>();
-        JSONArray routes = null;
-        
-        //routes = json.getJSONArray(TAG_REPORT_UNITS);
-
+       
         for (int i = 0; i < todoJsonArray.length(); i++) {
             try {
                 JSONObject jsonObject = todoJsonArray.getJSONObject(i);
