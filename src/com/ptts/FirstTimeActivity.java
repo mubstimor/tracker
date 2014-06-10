@@ -13,7 +13,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.ptts.fragments.MenuListFragment;
 import com.ptts.fragments.ScreenSlidePageFragment;
+import com.ptts.library.ZoomOutPageTransformer;
 
 public class FirstTimeActivity extends FragmentActivity {
 
@@ -46,15 +48,16 @@ public class FirstTimeActivity extends FragmentActivity {
 		menu.setFadeDegree(0.35f);
 		menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
 		menu.setMenu(R.layout.menu_frame);
-//		getSupportFragmentManager()
-//		.beginTransaction()
-//		.replace(R.id.menu_frame, new SampleListFragment())
-//		.commit();
+		getSupportFragmentManager()
+		.beginTransaction()
+		.replace(R.id.menu_frame, new MenuListFragment())
+		.commit();
 		
 		// Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getFragmentManager());
         mPager.setAdapter(mPagerAdapter);
+        mPager.setPageTransformer(true, new ZoomOutPageTransformer());
         mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
