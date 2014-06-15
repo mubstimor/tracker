@@ -25,7 +25,9 @@
         
         <activity
             android:name="com.ptts.Splash"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:theme="@style/SplashTheme"
+             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -51,13 +53,8 @@
         <activity
             android:name="com.ptts.SettingsActivity"
             android:label="@string/title_activity_settings" >
-        </activity>
-        
-          <activity
-            android:name="com.ptts.EntryListActivity"
-            android:label="@string/title_entry_activity" >
-        </activity>
-        
+        </activity>        
+          
          <!-- ContentProvider to store feed data.
 
         The "authorities" here are defined as part of a ContentProvider interface. It's used here

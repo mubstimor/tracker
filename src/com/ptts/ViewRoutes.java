@@ -1,28 +1,35 @@
 package com.ptts;
 
-import com.ptts.fragments.RouteListFragment;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.ptts.fragments.MenuListFragment;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 
-
-public class ViewRoutes extends BaseActivity {
+/**
+ * Activity for holding EntryListFragment.
+ */
+public class ViewRoutes extends FragmentActivity {
 	
-	public ViewRoutes() {
-		super(R.string.title_activity_view_routes);
-	}
-	
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	private SlidingMenu menu;
 
-		// set the Above View
-		setContentView(R.layout.content_frame);
-		getSupportFragmentManager()
-		.beginTransaction()
-		.replace(R.id.content_frame, new RouteListFragment())
-		.commit();
-		
-		setSlidingActionBarEnabled(false);
-	}
-
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_entry_list);
+        
+     // configure the SlidingMenu
+     		menu = new SlidingMenu(this);
+     		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+     		menu.setShadowWidthRes(R.dimen.shadow_width);
+     		menu.setShadowDrawable(R.drawable.shadow);
+     		menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+     		menu.setFadeDegree(0.35f);
+     		menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
+     		menu.setMenu(R.layout.menu_frame);
+     		getSupportFragmentManager()
+     		.beginTransaction()
+     		.replace(R.id.menu_frame, new MenuListFragment())
+     		.commit();
+    }
 }

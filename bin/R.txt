@@ -478,6 +478,8 @@ int style Sherlock___Widget_Holo_DropDownItem 0x7f0b0029
 int style Sherlock___Widget_Holo_ListView 0x7f0b0026
 int style Sherlock___Widget_Holo_Spinner 0x7f0b0023
 int style Sherlock___Widget_SearchAutoCompleteTextView 0x7f0b0033
+int style SplashTheme 0x7f0b005a
+int style SplashTheme_FullScreen 0x7f0b005b
 int style TextAppearance_Sherlock 0x7f0b004a
 int style TextAppearance_Sherlock_Light_SearchResult 0x7f0b004e
 int style TextAppearance_Sherlock_Light_SearchResult_Subtitle 0x7f0b0050

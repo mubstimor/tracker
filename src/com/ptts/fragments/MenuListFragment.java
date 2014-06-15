@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.ptts.EntryListActivity;
+import com.ptts.ViewRoutes;
 import com.ptts.Feedback;
 import com.ptts.FirstTimeActivity;
 import com.ptts.R;
@@ -37,7 +37,7 @@ public class MenuListFragment extends ListFragment {
 		adapter.add(new MenuItem("Provide Feedback", R.drawable.ic_action_mail_add));
 		adapter.add(new MenuItem("Product Tour", android.R.drawable.ic_menu_search));
 		adapter.add(new MenuItem("Settings", R.drawable.ic_action_settings));
-		adapter.add(new MenuItem("Syncing", android.R.drawable.ic_menu_search));	
+		//adapter.add(new MenuItem("Syncing", android.R.drawable.ic_menu_search));	
 				
 		setListAdapter(adapter);
 	}
@@ -62,9 +62,9 @@ public class MenuListFragment extends ListFragment {
 		else if (id == 4) {
 			cls = SettingsActivity.class;	
 		}
-		else if (id == 5) {
-			cls = EntryListActivity.class;	
-		}
+//		else if (id == 5) {
+//			cls = ViewRoutes.class;	
+//		}
 		
 		Intent intent = new Intent(getActivity(), cls);
 		startActivity(intent);		
