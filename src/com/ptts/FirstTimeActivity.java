@@ -115,6 +115,11 @@ public class FirstTimeActivity extends FragmentActivity {
 	                // Advance to the next step in the wizard. If there is no next step, setCurrentItem
 	                // will do nothing.
 	                mPager.setCurrentItem(mPager.getCurrentItem() + 1);
+	                if(mPager.getCurrentItem()==4){
+	                	//Toast.makeText(getApplicationContext(), "Load first activity", Toast.LENGTH_SHORT).show();
+	                	Intent intent = new Intent(FirstTimeActivity.this, ViewRoutes.class);
+	            		startActivity(intent);
+	                }
 	                return true;
 	        }
 
