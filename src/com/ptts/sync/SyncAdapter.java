@@ -64,7 +64,7 @@ class SyncAdapter extends AbstractThreadedSyncAdapter {
      * <p>This points to the Android Developers Blog. (Side note: We highly recommend reading the
      * Android Developer Blog to stay up to date on the latest Android platform developments!)
      */
-    private static final String FEED_URL = "http://smsme.info/android-sync/download.json";
+    private static final String FEED_URL = "http://ptts.herokuapp.com/dstops/?format=json";
     
     //http://smsme.info/android-sync/download.xml
 //   http://ptts.herokuapp.com/view_routes/?format=xml
@@ -92,7 +92,8 @@ class SyncAdapter extends AbstractThreadedSyncAdapter {
             FeedContract.Entry.COLUMN_NAME_ENTRY_ID,
             FeedContract.Entry.COLUMN_NAME_NAME,
             FeedContract.Entry.COLUMN_NAME_START,
-            FeedContract.Entry.COLUMN_NAME_END};
+            FeedContract.Entry.COLUMN_NAME_END,
+            FeedContract.Entry.COLUMN_NAME_STOPS};
 
     // Constants representing column positions from PROJECTION.
     public static final int COLUMN_ID = 0;
@@ -100,6 +101,7 @@ class SyncAdapter extends AbstractThreadedSyncAdapter {
     public static final int COLUMN_NAME = 2;
     public static final int COLUMN_START = 3;
     public static final int COLUMN_END = 4;
+    public static final int COLUMN_STOPS = 5;
 
     /**
      * Constructor. Obtains handle to content resolver for later use.
@@ -180,7 +182,7 @@ class SyncAdapter extends AbstractThreadedSyncAdapter {
     }
 
     /**
-     * Read XML from an input stream, storing it into the content provider.
+     * Read JSON from an input stream, storing it into the content provider.
      *
      * <p>This is where incoming data is persisted, committing the results of a sync. In order to
      * minimize (expensive) disk operations, we compare incoming data with what's already in our
@@ -205,7 +207,7 @@ class SyncAdapter extends AbstractThreadedSyncAdapter {
         final FeedParserJson feedParser = new FeedParserJson();
         final ContentResolver contentResolver = getContext().getContentResolver();
 
-        Log.i(TAG, "Parsing stream as Atom feed");
+        Log.i(TAG, "Parsing stream as Json feed");
         final List<FeedParserJson.Entry> entries = feedParser.parse(stream);
         Log.i(TAG, "Parsing complete. Found " + entries.size() + " entries");
 
@@ -231,6 +233,7 @@ class SyncAdapter extends AbstractThreadedSyncAdapter {
         String name;
         String start;
         String end;
+        String stops;
         while (c.moveToNext()) {
             syncResult.stats.numEntries++;
             id = c.getInt(COLUMN_ID);
@@ -238,6 +241,10 @@ class SyncAdapter extends AbstractThreadedSyncAdapter {
             name = c.getString(COLUMN_NAME);
             start = c.getString(COLUMN_START);
             end = c.getString(COLUMN_END);
+            stops = c.getString(COLUMN_STOPS);
+            
+            Log.i("STOPS FROM PROJECTION", stops);
+            
             FeedParserJson.Entry match = entryMap.get(entryId);
             if (match != null) {
                 // Entry exists. Remove from entry map to prevent insert later.
@@ -245,15 +252,27 @@ class SyncAdapter extends AbstractThreadedSyncAdapter {
                 // Check to see if the entry needs to be updated
                 Uri existingUri = FeedContract.Entry.CONTENT_URI.buildUpon()
                         .appendPath(Integer.toString(id)).build();
+                               
                 if ((match.name != null && !match.name.equals(name)) ||
                         (match.start != null && !match.start.equals(start)) ||
+                        (match.stops != null && !match.stops.equals(stops)) ||
                         (match.end != end)) {
-                    // Update existing record
+                    
+                	 Log.i("STOPS FROM HASHMAP", match.stops);
+                     if(!match.stops.equals(stops)){
+                     	Log.i("COMPARING PROJECTION "+match.stops+" & HASHMAP "+stops, "The two aren't equal");
+                     }else{
+                     	Log.i("COMPARING PROJECTION & HASHMAP", "The two are equal");
+                     }
+                     
+                	// Update existing record
+                	
                     Log.i(TAG, "Scheduling update: " + existingUri);
                     batch.add(ContentProviderOperation.newUpdate(existingUri)
                             .withValue(FeedContract.Entry.COLUMN_NAME_NAME, name)
                             .withValue(FeedContract.Entry.COLUMN_NAME_START, start)
                             .withValue(FeedContract.Entry.COLUMN_NAME_END, end)
+                            .withValue(FeedContract.Entry.COLUMN_NAME_STOPS, stops)
                             .build());
                     syncResult.stats.numUpdates++;
                 } else {
@@ -278,6 +297,7 @@ class SyncAdapter extends AbstractThreadedSyncAdapter {
                     .withValue(FeedContract.Entry.COLUMN_NAME_NAME, e.name)
                     .withValue(FeedContract.Entry.COLUMN_NAME_START, e.start)
                     .withValue(FeedContract.Entry.COLUMN_NAME_END, e.end)
+                    .withValue(FeedContract.Entry.COLUMN_NAME_STOPS, e.stops)
                     .build());
             syncResult.stats.numInserts++;
         }

@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,22 +41,26 @@ import android.util.Log;
  */
 public class FeedParserJson {
 	
-	 // Constants indicting JSON response nodes that we're interested in
+	 // Constants indicating JSON response nodes that we're interested in
 	private static final String TAG_COUNT = "count";	
 	private static final String TAG_JSON_ARRAY = "results";
 	private static final String TAG_ROUTE_ID = "id";
 	private static final String TAG_ROUTE_NAME = "route_name";
 	private static final String TAG_ROUTE_START = "route_start";
 	private static final String TAG_ROUTE_END = "route_end";
+	private static final String TAG_STOPS_ARRAY = "stops";
+	private static final String TAG_ROUTE_STOP = "stop_name";
 	
     JSONParser jsonParser = new JSONParser();
-	private static final String FEED_URL = "http://smsme.info/android-sync/download.json";
+	private static final String FEED_URL = "http://ptts.herokuapp.com/dstops";
   
     public List<Entry> parse(InputStream in)
             throws JSONException, IOException, ParseException {
         try {
             
             List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("format", "json"));
+            
 			JSONObject json = jsonParser.makeHttpRequest(FEED_URL, "GET", params);
 			
 			Log.i("JSON RESPONSE", json.toString());
@@ -76,8 +81,18 @@ public class FeedParserJson {
           
  
             for (int i = 0; i < posts.length(); i++) {
-                JSONObject entry = (JSONObject) posts.getJSONObject(i);                
-                Entry entryObject = new Entry(entry.getString(TAG_ROUTE_ID), entry.getString(TAG_ROUTE_NAME), entry.getString(TAG_ROUTE_START), entry.getString(TAG_ROUTE_END));                           
+                JSONObject entry = (JSONObject) posts.getJSONObject(i);
+                String routeString = "";
+                
+                JSONArray routeStops = entry.getJSONArray(TAG_STOPS_ARRAY);
+                for (int j = 0; j < routeStops.length(); j++){
+                    JSONObject routeStop = routeStops.getJSONObject(j);                    
+                    routeString += routeStop.getString(TAG_ROUTE_STOP)+",";                    
+                }
+                
+                Log.i("FOUND STOP", routeString);
+                
+                Entry entryObject = new Entry(entry.getString(TAG_ROUTE_ID), entry.getString(TAG_ROUTE_NAME), entry.getString(TAG_ROUTE_START), entry.getString(TAG_ROUTE_END),routeString);                           
  
                 entries.add(entryObject);
             }
@@ -85,22 +100,20 @@ public class FeedParserJson {
         return entries;
     }
 
-    /**
-     * This class represents a single entry (post) in the XML feed.
-     *
-     * <p>It includes the data members "title," "link," and "summary."
-     */
+ 
     public static class Entry {
         public final String id;
         public final String name;
         public final String start;
         public final String end;
+        public final String stops;
 
-        Entry(String id, String name, String start, String end) {
+        Entry(String id, String name, String start, String end, String stops) {
             this.id = id;
             this.name = name;
             this.start = start;
             this.end = end;
+            this.stops = stops;
         }
     }
 }

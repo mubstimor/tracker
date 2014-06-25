@@ -1,0 +1,83 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="${packageName}.${activityClass}" >
+
+    <TextView
+        android:id="@+id/route_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="26dp"
+        android:text="@string/route_holder" />
+    
+    <TextView
+        android:id="@+id/route_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="26dp"
+        android:paddingTop="20dp"
+        android:textSize="24sp"
+        android:layout_below="@+id/route_id"
+        android:text="@string/route_name" />
+    
+    <TextView
+        android:id="@+id/stops_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="26dp"
+        android:paddingTop="60dp"
+        android:textSize="15sp"
+        android:layout_below="@+id/route_name"
+        android:text="@string/stops_label" />
+    
+       <TextView
+        android:id="@+id/route_stops"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="26dp"
+        android:paddingTop="80dp"
+        android:textSize="15sp"
+        android:layout_below="@+id/stops_label"
+        android:text="@string/stops_template" />
+       
+        <TextView
+        android:id="@+id/buses_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="26dp"
+        android:paddingTop="130dp"
+        android:textSize="15sp"
+        android:layout_below="@+id/route_stops"
+        android:text="@string/buses_label" />
+           
+       <ListView
+           android:id="@android:id/list"
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginLeft="20dp"           
+           android:paddingTop="170dp" >
+       </ListView>
+       
+          <ProgressBar
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@android:id/list"
+            android:id="@+id/progressBar"/>
+
+</RelativeLayout>

@@ -51,12 +51,12 @@ public class FeedContract {
          * MIME type for lists of entries.
          */
         public static final String CONTENT_TYPE =
-                ContentResolver.CURSOR_DIR_BASE_TYPE + "/vnd.basicsyncadapter.entries";
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/vnd.tracker.entries";
         /**
          * MIME type for individual entries.
          */
         public static final String CONTENT_ITEM_TYPE =
-                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/vnd.basicsyncadapter.entry";
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/vnd.tracker.entry";
 
         /**
          * Fully qualified URI for "entry" resources.
@@ -69,21 +69,12 @@ public class FeedContract {
          */
         public static final String TABLE_NAME = "entry";
         /**
-         * Atom ID. (Note: Not to be confused with the database primary key, which is _ID.
+         * ROUTE ID. (Note: Not to be confused with the database primary key, which is _ID.
          */
-        public static final String COLUMN_NAME_ENTRY_ID = "id";
-        /**
-         * Article title
-         */
-        public static final String COLUMN_NAME_NAME = "name";
-        /**
-         * Article hyperlink. Corresponds to the rel="alternate" link in the
-         * Atom spec.
-         */
-        public static final String COLUMN_NAME_START = "start";
-        /**
-         * Date article was published.
-         */
+        public static final String COLUMN_NAME_ENTRY_ID = "id";        
+        public static final String COLUMN_NAME_NAME = "name";        
+        public static final String COLUMN_NAME_START = "start";        
         public static final String COLUMN_NAME_END = "end";
+        public static final String COLUMN_NAME_STOPS = "stops";
     }
 }

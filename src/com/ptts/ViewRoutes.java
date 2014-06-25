@@ -16,7 +16,7 @@ public class ViewRoutes extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_entry_list);
+        setContentView(R.layout.activity_route_list);
         
      // configure the SlidingMenu
      		menu = new SlidingMenu(this);

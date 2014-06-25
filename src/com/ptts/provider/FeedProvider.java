@@ -215,7 +215,7 @@ public class FeedProvider extends ContentProvider {
         public static final String DATABASE_NAME = "feed.db";
 
         private static final String TYPE_TEXT = " TEXT";
-        private static final String TYPE_INTEGER = " INTEGER";
+//        private static final String TYPE_INTEGER = " INTEGER";
         private static final String COMMA_SEP = ",";
         /** SQL statement to create "entry" table. */
         private static final String SQL_CREATE_ENTRIES =
@@ -224,7 +224,8 @@ public class FeedProvider extends ContentProvider {
                         FeedContract.Entry.COLUMN_NAME_ENTRY_ID + TYPE_TEXT + COMMA_SEP +
                         FeedContract.Entry.COLUMN_NAME_NAME    + TYPE_TEXT + COMMA_SEP +
                         FeedContract.Entry.COLUMN_NAME_START + TYPE_TEXT + COMMA_SEP +
-                        FeedContract.Entry.COLUMN_NAME_END + TYPE_TEXT + ")";
+                        FeedContract.Entry.COLUMN_NAME_END + TYPE_TEXT + COMMA_SEP +
+                        FeedContract.Entry.COLUMN_NAME_STOPS + TYPE_TEXT + ")";
 
         /** SQL statement to drop "entry" table. */
         private static final String SQL_DELETE_ENTRIES =
