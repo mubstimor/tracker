@@ -23,10 +23,13 @@
     <string name="label_message">Message</string>
     <string name="list_view_placeholder">Medium Text</string>
     <string name="route_holder">Route <xliff:g id="step_number">%1$d</xliff:g></string>
+    <string name="plate_holder">UAX 891P</string>
+    <string name="bus_time_holder">10 mins away</string>
     <string name="route_name">Route Name</string>
     <string name="stops_label">Stops along the route</string>
     <string name="stops_template">kampala,wandegeya</string>
     <string name="buses_label">Buses on this route</string>
+    <string name="map_bus_label">On the map</string>
 
     <!-- Text Field hints -->
     <string name="hint_fullName">John Doe</string>
@@ -53,5 +56,7 @@
     <string name="right">Right</string>
     <string name="left_and_right">Left and Right</string>
     <string name="title_activity_route_details">Route Details</string>
+    <string name="tour_description"><![CDATA[Lorem ipsum dolor sit amet fermentum elit porta.]]></string>
+    <string name="title_activity_bus_location">Bus Location</string>
 
 </resources>

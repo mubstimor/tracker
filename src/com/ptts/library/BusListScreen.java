@@ -1,7 +1,8 @@
 package com.ptts.library;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public interface BusListScreen {
-    void displayList(List<BusItem> routeItems);
+    void displayList( ArrayList<HashMap<String, String>> busItems);
 }

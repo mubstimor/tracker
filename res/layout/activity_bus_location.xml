@@ -1,0 +1,60 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="${packageName}.${activityClass}" >
+
+
+    <TextView
+        android:id="@+id/bus_plate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="26dp"
+        android:paddingTop="20dp"
+        android:textSize="24sp"        
+        android:text="@string/plate_holder" />    
+     
+    <TextView
+        android:id="@+id/time_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="26dp"
+        android:paddingTop="60dp"
+        android:textSize="15sp"
+        android:layout_below="@+id/bus_plate"
+        android:text="@string/bus_time_holder" />
+   
+       
+        <TextView
+        android:id="@+id/buses_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="26dp"
+        android:paddingTop="100dp"
+        android:textSize="15sp"
+        android:layout_below="@+id/time_label"
+        android:text="@string/map_bus_label" />
+           
+          <fragment
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/buses_label"
+            class="com.google.android.gms.maps.SupportMapFragment"
+             map:cameraTargetLat="0.332335"
+             map:cameraTargetLng="32.579842"
+             map:cameraZoom="13" 
+             />
+
+</RelativeLayout>

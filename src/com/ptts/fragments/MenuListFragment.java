@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.ptts.ViewRoutes;
 import com.ptts.Feedback;
 import com.ptts.FirstTimeActivity;
 import com.ptts.R;

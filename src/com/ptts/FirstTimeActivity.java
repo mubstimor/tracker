@@ -14,7 +14,7 @@ import android.view.MenuItem;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.ptts.fragments.MenuListFragment;
-import com.ptts.fragments.ScreenSlidePageFragment;
+import com.ptts.fragments.TutorialFragment;
 import com.ptts.library.ZoomOutPageTransformer;
 
 public class FirstTimeActivity extends FragmentActivity {
@@ -127,7 +127,7 @@ public class FirstTimeActivity extends FragmentActivity {
 	    }
 
 	    /**
-	     * A simple pager adapter that represents 5 {@link ScreenSlidePageFragment} objects, in
+	     * A simple pager adapter that represents 5 {@link TutorialFragment} objects, in
 	     * sequence.
 	     */
 	    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
@@ -137,7 +137,7 @@ public class FirstTimeActivity extends FragmentActivity {
 
 	        @Override
 	        public Fragment getItem(int position) {
-	            return ScreenSlidePageFragment.create(position);
+	            return TutorialFragment.create(position);
 	        }
 
 	        @Override

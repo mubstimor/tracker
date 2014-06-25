@@ -16,12 +16,49 @@
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
     <!-- Required because we're manually creating a new account. -->
     <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    
+    <!-- Google Maps related permissions -->
+	<permission
+	    android:name="com.ptts.permission.MAPS_RECEIVE"
+	    android:protectionLevel="signature" />
+
+	<!-- Access Google based webservices -->
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+    
+     <uses-permission android:name="com.ptts.permission.MAPS_RECEIVE"/>
+     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+     
+     <!-- External storage for caching. -->
+     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+     
+     <!-- The following two permissions are not required to use
+         Google Maps Android API v2, but are recommended. -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
+    <!-- Maps API needs OpenGL ES 2.0. -->
+    <uses-feature
+            android:glEsVersion="0x00020000"
+            android:required="true"/>
+    
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/ExampleTheme" >
+        
+        <uses-library android:name="com.google.android.maps" />
+        <meta-data
+                android:name="com.google.android.maps.v2.API_KEY"
+                android:value="AIzaSyCd2kAWZkNXXi0bDNujRpv0MCZJ8qJxVeE"/>
+
+        <meta-data
+                android:name="com.google.android.gms.version"
+                android:value="@integer/google_play_services_version" />
+        
         <activity
             android:name="com.ptts.Splash"
             android:label="@string/app_name"
@@ -61,7 +98,7 @@
         SyncService.java.
 
         Since this ContentProvider is not exported, it will not be accessible outside of this app's
-        package.
+        package.
         -->
         <provider
             android:name="com.ptts.provider.FeedProvider"
@@ -70,7 +107,7 @@
 
         <!--
         This service implements our SyncAdapter. It needs to be exported, so that the system
-        sync framework can access it.
+        sync framework can access it.
         -->
         <service
             android:name="com.ptts.sync.SyncService"
@@ -78,7 +115,7 @@
 
             <!--
             This intent filter is required. It allows the system to launch our sync service
-            as needed.
+            as needed.
             -->
             <intent-filter>
                 <action android:name="android.content.SyncAdapter" />
@@ -95,7 +132,7 @@
         feed), this account's implementation is largely empty.
 
         It's also possible to attach a SyncAdapter to an existing account provided by another
-        package. In that case, this element could be omitted here.
+        package. In that case, this element could be omitted here.
         -->
         <service android:name="com.ptts.accounts.GenericAccountService" >
 
@@ -111,9 +148,12 @@
 
         <activity
             android:name="com.ptts.fragments.RouteDetails"
-            android:label="@string/title_activity_route_details"
             android:configChanges="orientation|screenSize"
-             >
+            android:label="@string/title_activity_route_details" >
+        </activity>
+        <activity
+            android:name="com.ptts.fragments.BusLocation"
+            android:label="@string/title_activity_bus_location" >
         </activity>
     </application>
 

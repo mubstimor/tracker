@@ -1,7 +1,11 @@
 package com.ptts.library;
 
-import android.os.AsyncTask;
-import android.util.Log;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -11,16 +15,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+import android.os.AsyncTask;
+import android.util.Log;
 
 public class FetchBusTask extends AsyncTask<String, Void, JSONArray> {
 
     public BusListScreen listScreen = null;
+	private static final String KEY_BUSID = "bus_id";
+	private static final String KEY_LATITUDE = "latitude";
+	private static final String KEY_LONGITUDE= "longitude";
+	static final String KEY_ROUTEID= "route_id";
 
     @Override
     protected JSONArray doInBackground(String... urls) {
@@ -46,18 +50,29 @@ public class FetchBusTask extends AsyncTask<String, Void, JSONArray> {
 
     @Override
     protected void onPostExecute(JSONArray todoJsonArray) {
-        List<BusItem> routeItems = new ArrayList<BusItem>();
+        //List<BusItem> routeItems = new ArrayList<BusItem>();
+        ArrayList<HashMap<String, String>> busList = new ArrayList<HashMap<String, String>>();
        
         for (int i = 0; i < todoJsonArray.length(); i++) {
             try {
+            	HashMap<String, String> map = new HashMap<String, String>();
                 JSONObject jsonObject = todoJsonArray.getJSONObject(i);
-                routeItems.add(new BusItem(jsonObject.getString("bus_id"),jsonObject.getString("latitude"),jsonObject.getString("longitude")));
+                map.put(getKeyBusid(), jsonObject.getString(getKeyBusid()));
+                map.put(getKeyLatitude(), jsonObject.getString(getKeyLatitude()));
+                map.put(getKeyLongitude(), jsonObject.getString(getKeyLongitude()));
+                map.put(KEY_ROUTEID, jsonObject.getString(KEY_ROUTEID));
+                
+             // adding HashList to ArrayList
+    			busList.add(map);
+    			
+          //      routeItems.add(new BusItem(jsonObject.getString("bus_id"),jsonObject.getString("latitude"),jsonObject.getString("longitude")));
                 Log.i("FETCHING DATA", jsonObject.getString("bus_id"));
+                
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-        listScreen.displayList(routeItems);
+        listScreen.displayList(busList);
     }
 
     private String getResponseBody(HttpResponse response) {
@@ -75,4 +90,16 @@ public class FetchBusTask extends AsyncTask<String, Void, JSONArray> {
             return "{}";
         }
     }
+
+	public static String getKeyBusid() {
+		return KEY_BUSID;
+	}
+
+	public static String getKeyLatitude() {
+		return KEY_LATITUDE;
+	}
+
+	public static String getKeyLongitude() {
+		return KEY_LONGITUDE;
+	}
 }

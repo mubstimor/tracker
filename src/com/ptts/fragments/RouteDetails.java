@@ -1,18 +1,21 @@
 package com.ptts.fragments;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ptts.R;
-import com.ptts.library.BusItem;
+import com.ptts.library.BusAdapter;
 import com.ptts.library.BusListScreen;
 import com.ptts.library.FetchBusTask;
 
@@ -46,19 +49,35 @@ public class RouteDetails extends Activity implements BusListScreen {
 		
 		//to get buses along a route
 		fetchBusesTask.listScreen = this;
-		fetchBusesTask.execute("http://ptts.herokuapp.com/getbuslocations/1/?format=json");		
+		fetchBusesTask.execute("http://ptts.herokuapp.com/getbuslocations/"+route_id.trim()+"/?format=json");		
 	}
 	
 	@Override
-	public void displayList(List<BusItem> busItems) {		
-		ArrayAdapter<BusItem> adapter = new ArrayAdapter<BusItem>(getApplicationContext(), android.R.layout.simple_list_item_1, busItems);
+	public void displayList(final ArrayList<HashMap<String, String>> busItems) {		
+		BusAdapter adapter = new BusAdapter(this, busItems);
         ListView listView = (ListView)findViewById(android.R.id.list);
         listView.setAdapter(adapter);
         makeProgressBarDisappear();		
+        
+        listView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {							
+				Toast.makeText(getApplicationContext(), "clicked list item "+busItems.get(position).get(FetchBusTask.getKeyBusid()), Toast.LENGTH_SHORT).show();
+				Intent i = new Intent(getApplicationContext(), BusLocation.class);
+		        i.putExtra("bus_id", busItems.get(position).get(FetchBusTask.getKeyBusid()));
+		        i.putExtra("latitude", busItems.get(position).get(FetchBusTask.getKeyLatitude()));
+		        i.putExtra("longitude",busItems.get(position).get(FetchBusTask.getKeyLongitude()));
+		        startActivity(i);
+ 
+			}
+		});	
 	}
 	
 	   private void makeProgressBarDisappear() {
 	        ProgressBar progressBar = (ProgressBar)findViewById(R.id.progressBar);
 	        progressBar.setVisibility(View.INVISIBLE);
 	    }
+	   
 }

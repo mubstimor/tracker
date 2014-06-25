@@ -1,10 +1,10 @@
 package com.ptts;
 
-import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-import com.ptts.fragments.MenuListFragment;
-
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.ptts.fragments.MenuListFragment;
 
 /**
  * Activity for holding EntryListFragment.
