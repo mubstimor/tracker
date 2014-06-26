@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.ptts.R;
 import com.ptts.library.BusAdapter;
 import com.ptts.library.BusListScreen;
+import com.ptts.library.ConnectionDetector;
 import com.ptts.library.FetchBusTask;
 
 public class RouteDetails extends Activity implements BusListScreen {
@@ -24,12 +25,14 @@ public class RouteDetails extends Activity implements BusListScreen {
 	FetchBusTask fetchBusesTask = new FetchBusTask();
 	TextView txtRouteId,txtRouteName,txtRouteStops;
 	String route_id, route_name, route_stops;
+	ConnectionDetector cd; 		// Internet detector
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_route_details);
-				
+		
+		cd = new ConnectionDetector(getApplicationContext());
 		txtRouteId = (TextView)findViewById(R.id.route_id);
 		txtRouteName = (TextView)findViewById(R.id.route_name);
 		txtRouteStops = (TextView)findViewById(R.id.route_stops);
@@ -46,10 +49,7 @@ public class RouteDetails extends Activity implements BusListScreen {
 		txtRouteId.setText("Route :");
 		txtRouteName.setText(route_name);
 		txtRouteStops.setText(route_stops);
-		
-		//to get buses along a route
-		fetchBusesTask.listScreen = this;
-		fetchBusesTask.execute("http://ptts.herokuapp.com/getbuslocations/"+route_id.trim()+"/?format=json");		
+
 	}
 	
 	@Override
@@ -79,5 +79,28 @@ public class RouteDetails extends Activity implements BusListScreen {
 	        ProgressBar progressBar = (ProgressBar)findViewById(R.id.progressBar);
 	        progressBar.setVisibility(View.INVISIBLE);
 	    }
+	   
+	   @Override
+	   protected void onResume() 
+	   {
+	       super.onResume();
+	       if (!cd.isConnectingToInternet()){	            
+	            Toast.makeText(getApplicationContext(), "Connect to Internet First",Toast.LENGTH_LONG).show();
+	            return;
+	        }
+	   }
+	   
+	   @Override
+	    public void onStart() {
+	        super.onStart();
+	        if (!cd.isConnectingToInternet()){	            
+	            Toast.makeText(getApplicationContext(), "Connect to Internet First",Toast.LENGTH_LONG).show();
+	            return;
+	        }else{
+	        	//to get buses along a route
+	      		fetchBusesTask.listScreen = this;
+	      		fetchBusesTask.execute("http://ptts.herokuapp.com/getbuslocations/"+route_id.trim()+"/?format=json");
+	        }
+	   }
 	   
 }
