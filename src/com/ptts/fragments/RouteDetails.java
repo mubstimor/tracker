@@ -50,6 +50,14 @@ public class RouteDetails extends Activity implements BusListScreen {
 		txtRouteName.setText(route_name);
 		txtRouteStops.setText(route_stops);
 
+		 if (!cd.isConnectingToInternet()){	            
+	            Toast.makeText(getApplicationContext(), "Connect to Internet First",Toast.LENGTH_LONG).show();
+	            return;
+	        }else{
+	        	//to get buses along a route
+	      		fetchBusesTask.listScreen = this;
+	      		fetchBusesTask.execute("http://ptts.herokuapp.com/getbuslocations/"+route_id.trim()+"/?format=json");
+	        }
 	}
 	
 	@Override
@@ -96,10 +104,6 @@ public class RouteDetails extends Activity implements BusListScreen {
 	        if (!cd.isConnectingToInternet()){	            
 	            Toast.makeText(getApplicationContext(), "Connect to Internet First",Toast.LENGTH_LONG).show();
 	            return;
-	        }else{
-	        	//to get buses along a route
-	      		fetchBusesTask.listScreen = this;
-	      		fetchBusesTask.execute("http://ptts.herokuapp.com/getbuslocations/"+route_id.trim()+"/?format=json");
 	        }
 	   }
 	   
