@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Tracker.iml" filepath="$PROJECT_DIR$/Tracker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TrackerTests/TrackerTests.iml" filepath="$PROJECT_DIR$/TrackerTests/TrackerTests.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../final year project workspace/downloaded code/JakeWharton-ActionBarSherlock-5a15d92/actionbarsherlock/actionbarsherlock.iml" filepath="$PROJECT_DIR$/../../final year project workspace/downloaded code/JakeWharton-ActionBarSherlock-5a15d92/actionbarsherlock/actionbarsherlock.iml" />
+      <module fileurl="file://C:/Android/sdk/extras/google/google_play_services/libproject/google-play-services_lib/google-play-services_lib.iml" filepath="C:/Android/sdk/extras/google/google_play_services/libproject/google-play-services_lib/google-play-services_lib.iml" />
+    </modules>
+  </component>
+</project>
+

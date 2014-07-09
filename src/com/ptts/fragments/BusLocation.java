@@ -305,7 +305,6 @@ public class BusLocation extends FragmentActivity implements LocationListener, L
 		protected void onPostExecute(List<List<HashMap<String, String>>> result) {
 			ArrayList<LatLng> points = null;
 			PolylineOptions lineOptions = null;
-			MarkerOptions markerOptions = new MarkerOptions();
 			String distance = "";
 			String duration = "";
 			

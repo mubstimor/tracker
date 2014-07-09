@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component jdk="Android API 19 Platform" jdk_type="Android SDK">
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$"/>
+	<lib name="guava-14.0.1.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/libs/guava-14.0.1.jar!/"/>
+	</lib>
+	<lib name="google-play-services.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://C:/Android/sdk/extras/google/google_play_services/libproject/google-play-services_lib/libs/google-play-services.jar!/"/>
+	</lib>
+	<lib name="C:\Dropbox\final year project workspace\downloaded code\SlidingMenu-master\library\bin\jfeinsteinlibrary.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/../../final year project workspace/downloaded code/SlidingMenu-master/library/bin/jfeinsteinlibrary.jar!/"/>
+	</lib>
+	<lib name="C:\Dropbox\final year project workspace\downloaded code\JakeWharton-ActionBarSherlock-5a15d92\actionbarsherlock\bin\actionbarsherlock.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/../../final year project workspace/downloaded code/JakeWharton-ActionBarSherlock-5a15d92/actionbarsherlock/bin/actionbarsherlock.jar!/"/>
+	</lib>
+	<levels>
+		<level name="appcompat_v7" value="project"/>
+	</levels>
+</component>

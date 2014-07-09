@@ -34,7 +34,7 @@ public class FeedContract {
     public static final String CONTENT_AUTHORITY = "com.ptts";
 
     /**
-     * Base URI. (content://com.example.android.network.sync.basicsyncadapter)
+     * Base URI. (content://com.ptts)
      */
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
