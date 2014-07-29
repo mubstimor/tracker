@@ -3,7 +3,6 @@ package com.ptts.fragments;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,24 +13,28 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.MenuItem;
 import com.ptts.R;
 import com.ptts.library.BusAdapter;
 import com.ptts.library.BusListScreen;
 import com.ptts.library.ConnectionDetector;
 import com.ptts.library.FetchBusTask;
 
-public class RouteDetails extends Activity implements BusListScreen {
+public class RouteDetails extends SherlockActivity implements BusListScreen {
 
 	FetchBusTask fetchBusesTask = new FetchBusTask();
 	TextView txtRouteId,txtRouteName,txtRouteStops;
 	String route_id, route_name, route_stops;
-	ConnectionDetector cd; 		// Internet detector
+	ConnectionDetector cd; 		// Internet detector	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_route_details);
 		
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+				
 		cd = new ConnectionDetector(getApplicationContext());
 		txtRouteId = (TextView)findViewById(R.id.route_id);
 		txtRouteName = (TextView)findViewById(R.id.route_name);
@@ -92,6 +95,7 @@ public class RouteDetails extends Activity implements BusListScreen {
 	   protected void onResume() 
 	   {
 	       super.onResume();
+	       getSupportActionBar().show();	       
 	       if (!cd.isConnectingToInternet()){	            
 	            Toast.makeText(getApplicationContext(), "Connect to Internet First",Toast.LENGTH_LONG).show();
 	            return;
@@ -107,4 +111,14 @@ public class RouteDetails extends Activity implements BusListScreen {
 	        }
 	   }
 	   
+	   @Override
+		public boolean onOptionsItemSelected(MenuItem item) {
+			switch (item.getItemId()) {
+			case android.R.id.home:
+				finish();
+				return true;
+			}
+			return super.onOptionsItemSelected(item);
+		}
+	
 }

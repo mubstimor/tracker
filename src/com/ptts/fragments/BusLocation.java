@@ -10,6 +10,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Dialog;
@@ -21,11 +32,14 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.MenuItem;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -36,35 +50,53 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.ptts.R;
+import com.ptts.library.ConnectionDetector;
 import com.ptts.library.DirectionsJSONParser;
 import com.ptts.library.FetchBusTask;
 
-public class BusLocation extends FragmentActivity implements LocationListener, LocationSource{
+public class BusLocation extends SherlockFragmentActivity implements LocationListener, LocationSource{
 
     GoogleMap mGoogleMap;
     double mLatitude=0;
     double mLongitude=0;
     LocationManager locationManager;
     TextView txtBusId,txtBusTime;
+    String bus_id;
+    ConnectionDetector cd;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bus_location);
+        
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        showProgressBar();        
 
         txtBusId = (TextView)findViewById(R.id.bus_plate);
 		txtBusTime = (TextView)findViewById(R.id.time_label);
 						
         Intent in = getIntent();
+        cd = new ConnectionDetector(getApplicationContext());
 
-        String bus_id = in.getStringExtra(FetchBusTask.getKeyBusid());        
+        bus_id = in.getStringExtra(FetchBusTask.getKeyBusid());        
         String latitude = in.getStringExtra(FetchBusTask.getKeyLatitude());
         String longitude = in.getStringExtra(FetchBusTask.getKeyLongitude());
         
-        txtBusId.setText(bus_id);
+        bus_id = bus_id.substring(6).replace("/", "");
+        
+        txtBusId.setText("Bus "+bus_id);
 		//txtBusTime.setText(latitude);
+        if (!cd.isConnectingToInternet()){	            
+            Toast.makeText(getApplicationContext(), "Connect to Internet First",Toast.LENGTH_LONG).show();
+            return;
+        }else{
+        	//to get bus plate number
+        	ServerConnection connect=new ServerConnection();
+    		connect.execute(new String[]{bus_id});
 
+        }
+        
         // Getting LocationManager object from System Service LOCATION_SERVICE
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
@@ -357,6 +389,101 @@ public class BusLocation extends FragmentActivity implements LocationListener, L
 		}			
     }   
 
+    private class ServerConnection extends AsyncTask<String,Void,String>{
+		String result=null;		
+		String url="http://ptts.herokuapp.com/buses/"+bus_id+"/?format=json";//URL HERE
+		InputStream is=null;
+		int TIMEOUT_MILLISEC=50000;
+		@Override
+		protected String doInBackground(String... params) {
+			
+			try {				
+				HttpParams httpParams = new BasicHttpParams();			
+				HttpConnectionParams.setConnectionTimeout(httpParams, TIMEOUT_MILLISEC);
+				HttpConnectionParams.setSoTimeout(httpParams, TIMEOUT_MILLISEC);
+				HttpClient client = new DefaultHttpClient(httpParams);
+				JSONObject json=new JSONObject();
+				HttpGet request = new HttpGet(url);
+				request.setHeader("json", json.toString());
+				HttpResponse response = client.execute(request);
+				HttpEntity entity = response.getEntity();
 
+				is = entity.getContent();
+			}catch (ClientProtocolException e) {
+				result="No Internet Connection";
+			} catch (IOException e) {
+				Log.v("Error while parsing the response","true");
+
+			}
+
+			try{
+				BufferedReader reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
+				StringBuilder builder = new StringBuilder();
+				String line=null;
+				while ((line = reader.readLine()) != null) {
+					builder.append(line + "\n");
+				}
+				is.close();
+				result=builder.toString();
+				Log.v("Server response", result);
+			}catch(Exception i){
+
+			}
+
+
+			return result;
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			super.onPostExecute(result);
+			if(result !=null){
+				makeProgressBarDisappear();
+					try {
+					JSONArray jsonResponse=new JSONArray(result);
+					JSONObject	jobject = jsonResponse.getJSONObject(0);
+					String busPlate=jobject.getString("license_number");
+					txtBusId.setText(busPlate);
+					Toast.makeText(getApplicationContext(), "License "+busPlate, Toast.LENGTH_LONG).show();
+										
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+
+				
+			}else{
+				Toast.makeText(getApplicationContext(), "Bus not found", Toast.LENGTH_SHORT).show();
+			}
+
+		}
+	}
+    
+    @Override
+	   protected void onResume() 
+	   {
+	       super.onResume();
+	       getSupportActionBar().show();  
+	       
+	   }
+    
+    @Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			finish();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+    
+	 private void makeProgressBarDisappear() {
+	        ProgressBar progressBar = (ProgressBar)findViewById(R.id.progressBar);
+	        progressBar.setVisibility(View.INVISIBLE);
+	    }
+	 
+	 private void showProgressBar() {
+	        ProgressBar progressBar = (ProgressBar)findViewById(R.id.progressBar);
+	        progressBar.setVisibility(View.VISIBLE);
+	    }
 }
 

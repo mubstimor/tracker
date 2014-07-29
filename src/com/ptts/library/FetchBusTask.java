@@ -21,6 +21,7 @@ import android.util.Log;
 public class FetchBusTask extends AsyncTask<String, Void, JSONArray> {
 
     public BusListScreen listScreen = null;
+    private static final String KEY_ID = "num";
 	private static final String KEY_BUSID = "bus_id";
 	private static final String KEY_LATITUDE = "latitude";
 	private static final String KEY_LONGITUDE= "longitude";
@@ -36,6 +37,9 @@ public class FetchBusTask extends AsyncTask<String, Void, JSONArray> {
             HttpResponse response = client.execute(get);
             responseBody = getResponseBody(response);
         }
+        catch(NullPointerException e){
+        	e.printStackTrace();
+        }
         catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -44,6 +48,8 @@ public class FetchBusTask extends AsyncTask<String, Void, JSONArray> {
             return new JSONArray(responseBody);
         } catch (JSONException e) {
             e.printStackTrace();
+        }catch(Throwable t){
+        	t.printStackTrace();
         }
         return null;
     }
@@ -53,10 +59,14 @@ public class FetchBusTask extends AsyncTask<String, Void, JSONArray> {
         //List<BusItem> routeItems = new ArrayList<BusItem>();
         ArrayList<HashMap<String, String>> busList = new ArrayList<HashMap<String, String>>();
        
+        try{
+    	   
+       
         for (int i = 0; i < todoJsonArray.length(); i++) {
             try {
             	HashMap<String, String> map = new HashMap<String, String>();
                 JSONObject jsonObject = todoJsonArray.getJSONObject(i);
+                map.put(getKeyId(), (i+1)+"");
                 map.put(getKeyBusid(), jsonObject.getString(getKeyBusid()));
                 map.put(getKeyLatitude(), jsonObject.getString(getKeyLatitude()));
                 map.put(getKeyLongitude(), jsonObject.getString(getKeyLongitude()));
@@ -72,6 +82,12 @@ public class FetchBusTask extends AsyncTask<String, Void, JSONArray> {
                 e.printStackTrace();
             }
         }
+        
+        }catch(NullPointerException e){        	
+        	e.printStackTrace();        	
+        	Log.i("error", "can't process data");
+        }
+        
         listScreen.displayList(busList);
     }
 
@@ -90,6 +106,10 @@ public class FetchBusTask extends AsyncTask<String, Void, JSONArray> {
             return "{}";
         }
     }
+    
+	public static String getKeyId() {
+		return KEY_ID;
+	}
 
 	public static String getKeyBusid() {
 		return KEY_BUSID;

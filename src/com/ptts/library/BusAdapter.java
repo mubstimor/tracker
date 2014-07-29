@@ -22,8 +22,7 @@ public class BusAdapter extends BaseAdapter {
 	 public BusAdapter(Activity a, ArrayList<HashMap<String, String>> d) {
 	        activity = a;
 	        data=d;
-	        inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	        
+	        inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);	        
 	    }
 
 	 public View getView(int position, View convertView, ViewGroup parent) {
@@ -32,15 +31,15 @@ public class BusAdapter extends BaseAdapter {
 	            vi = inflater.inflate(R.layout.list_row, null);
 
 	        TextView title = (TextView)vi.findViewById(R.id.title); // title
-	        TextView artist = (TextView)vi.findViewById(R.id.artist); // artist name
+//	        TextView artist = (TextView)vi.findViewById(R.id.artist); // artist name
 	        TextView duration = (TextView)vi.findViewById(R.id.duration); // duration
 	       	        
 	        HashMap<String, String> song = new HashMap<String, String>();
 	        song = data.get(position);
 	        
 	        // Setting all values in listview
-	        title.setText(song.get(FetchBusTask.getKeyBusid()));
-	        artist.setText(song.get(FetchBusTask.getKeyLatitude()));
+	        title.setText("Bus "+song.get(FetchBusTask.getKeyId()));
+//	        artist.setText(song.get(FetchBusTask.getKeyLatitude()));
 	        duration.setText("");
 	        
 	        return vi;

@@ -30,19 +30,26 @@
             android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:textColor="#ff6600"
+            android:layout_marginLeft="50dp"            
+            android:text="@string/hint_fullName"    
+             />
         
         <ImageView     
 			android:id="@+id/image"
 			android:layout_width="200dip"
 	        android:layout_height="200dip"
+	        android:contentDescription="@string/img_description"
 	        android:src="@drawable/lenovo"/>
 
         <TextView style="?android:textAppearanceMedium"
             android:id="@android:id/text2"
+            android:layout_marginTop="10dp"
             android:lineSpacingMultiplier="1.2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#3079ed"
             android:text="@string/tour_description" />
 
     </LinearLayout>

@@ -31,13 +31,8 @@ import org.json.JSONObject;
 import android.util.Log;
 
 /**
- * This class parses generic Atom feeds.
- *
- * <p>Given an InputStream representation of a feed, it returns a List of entries,
- * where each list element represents a single entry (post) in the XML feed.
- *
- * <p>An example of an Atom feed can be found at:
- * http://en.wikipedia.org/w/index.php?title=Atom_(standard)&oldid=560239173#Example_of_an_Atom_1.0_feed
+ * This class parses the received JSON Data.
+  *
  */
 public class FeedParserJson {
 	
@@ -86,8 +81,12 @@ public class FeedParserJson {
                 
                 JSONArray routeStops = entry.getJSONArray(TAG_STOPS_ARRAY);
                 for (int j = 0; j < routeStops.length(); j++){
-                    JSONObject routeStop = routeStops.getJSONObject(j);                    
-                    routeString += routeStop.getString(TAG_ROUTE_STOP)+",";                    
+                    JSONObject routeStop = routeStops.getJSONObject(j);  
+                    if(j != (routeStops.length()-1)){
+                    	routeString += routeStop.getString(TAG_ROUTE_STOP)+",";                    	
+                    }else{
+                    routeString += routeStop.getString(TAG_ROUTE_STOP);
+                    }
                 }
                 
                 Log.i("FOUND STOP", routeString);

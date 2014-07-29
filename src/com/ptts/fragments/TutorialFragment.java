@@ -72,32 +72,32 @@ public class TutorialFragment extends Fragment {
                 .inflate(R.layout.fragment_tutorial_page, container, false);
 
         if(mPageNumber == 0){
-          	 ((TextView) rootView.findViewById(android.R.id.text1)).setText("Page 1");
-          	((ImageView)rootView.findViewById(R.id.image)).setImageResource(R.drawable.lenovo);
-          	 ((TextView) rootView.findViewById(android.R.id.text2)).setText("very first page");
+          	 ((TextView) rootView.findViewById(android.R.id.text1)).setText("Get the main menu");
+          	((ImageView)rootView.findViewById(R.id.image)).setImageResource(R.drawable.sliding_menu);
+          	 ((TextView) rootView.findViewById(android.R.id.text2)).setText("Swipe right wards with a finger to access the menu of the App.");
           }
            else
            if(mPageNumber == 1){
-           	 ((TextView) rootView.findViewById(android.R.id.text1)).setText("Page 2");
-           	((ImageView)rootView.findViewById(R.id.image)).setImageResource(R.drawable.lenovo);
-           	 ((TextView) rootView.findViewById(android.R.id.text2)).setText("Custom content");
+           	 ((TextView) rootView.findViewById(android.R.id.text1)).setText("View Route Details");
+           	((ImageView)rootView.findViewById(R.id.image)).setImageResource(R.drawable.route_details);
+           	 ((TextView) rootView.findViewById(android.R.id.text2)).setText("Select desired route to view stops along the route and get to know which buses are currently on that route.");
            }else
            	if(mPageNumber == 2){
-              	 ((TextView) rootView.findViewById(android.R.id.text1)).setText("Page 3");
-              	((ImageView)rootView.findViewById(R.id.image)).setImageResource(R.drawable.ultrabook);
-              	 ((TextView) rootView.findViewById(android.R.id.text2)).setText("Custom content 2");
+              	 ((TextView) rootView.findViewById(android.R.id.text1)).setText("Bus Location");
+              	((ImageView)rootView.findViewById(R.id.image)).setImageResource(R.drawable.bus_location);
+              	 ((TextView) rootView.findViewById(android.R.id.text2)).setText("Select desired bus to get the time estimates of how long it will take for a bus to get you");
               }
            	else
            	 	if(mPageNumber == 3){
-                     	 ((TextView) rootView.findViewById(android.R.id.text1)).setText("Page 4");
-                     	((ImageView)rootView.findViewById(R.id.image)).setImageResource(R.drawable.ultrabook);
-                     	 ((TextView) rootView.findViewById(android.R.id.text2)).setText("Custom content 2");
+                     	 ((TextView) rootView.findViewById(android.R.id.text1)).setText("Provide Feedback");
+                     	((ImageView)rootView.findViewById(R.id.image)).setImageResource(R.drawable.provide_feedback);
+                     	 ((TextView) rootView.findViewById(android.R.id.text2)).setText("If u have any suggestions as regards the usage of the app or anything that you feel would be useful to us, please don't hesitate to contact us and fill us in.");
                      }
            	 	else
            	 	 	if(mPageNumber == 4){
-           	           	 ((TextView) rootView.findViewById(android.R.id.text1)).setText("Page 5");
-           	           	((ImageView)rootView.findViewById(R.id.image)).setImageResource(R.drawable.ultrabook);
-           	           	 ((TextView) rootView.findViewById(android.R.id.text2)).setText("very last page");
+           	           	 ((TextView) rootView.findViewById(android.R.id.text1)).setText("Go to App");
+           	           	((ImageView)rootView.findViewById(R.id.image)).setImageResource(R.drawable.finish_tutorial);
+           	           	 ((TextView) rootView.findViewById(android.R.id.text2)).setText("Click Finish to begin using the application.");
            	           }
 
 

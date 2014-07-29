@@ -177,6 +177,8 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             Log.e(TAG, "Error updating database: " + e.toString());
             syncResult.databaseError = true;
             return;
+        }catch(Throwable t){
+        	Log.i(TAG, "thrown error");        	
         }
         Log.i(TAG, "Network synchronization complete");
     }
@@ -269,6 +271,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                 	
                     Log.i(TAG, "Scheduling update: " + existingUri);
                     batch.add(ContentProviderOperation.newUpdate(existingUri)
+                    		.withValue(FeedContract.Entry.COLUMN_NAME_ENTRY_ID, entryId)
                             .withValue(FeedContract.Entry.COLUMN_NAME_NAME, name)
                             .withValue(FeedContract.Entry.COLUMN_NAME_START, start)
                             .withValue(FeedContract.Entry.COLUMN_NAME_END, end)

@@ -1,74 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="fill_parent" android:layout_height="fill_parent">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
-<LinearLayout 
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_margin="20dp">
-              
-    <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/txtHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_gravity="center_horizontal"
             android:text="@string/title_activity_feedback"
-            android:id="@+id/txtHeader" android:layout_gravity="center_horizontal"/>
-    
-    <TextView
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#ff6600" />
+
+        <TextView
+            android:id="@+id/textFullName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_marginTop="20dp"
-            android:text="@string/label_fullName"
-            android:id="@+id/textFullName"/>
-    <EditText
+            android:text="@string/label_subject"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#3079ed" />
+
+        <EditText
+            android:id="@+id/txtSubject"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/txtFullName" android:singleLine="true"
-            android:hint="@string/hint_fullName"/>
-    <TextView
+            android:hint="@string/hint_message"
+            android:inputType="text"
+            android:singleLine="true" />
+
+        <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_marginTop="20dp"
-            android:text="@string/label_email"
-            android:id="@+id/textEmail"/>
-    <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:ems="10"
-            android:id="@+id/txtEmail" android:singleLine="true"
-            android:hint="@string/hint_email"/>
-    
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_marginTop="20dp"
             android:text="@string/label_message"
-            android:id="@+id/textView"/>
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#3079ed" />
 
-    <EditText
-        android:id="@+id/txtMessage"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/hint_message"
-        android:minLines="3"
-        android:maxLines="7"
-        android:singleLine="false" />
-
-    <Button android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/txtMessage"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:id="@+id/btnSubmit"
-            android:text="@string/btn_submit"
-            />
-   
-</LinearLayout>
+            android:hint="@string/hint_message"
+            android:maxLines="7"
+            android:minLines="3"
+            android:singleLine="false" />
 
-   </ScrollView>
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/buttonshape"
+            android:shadowColor="#12A899"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:text="@string/btn_submit"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+</ScrollView>

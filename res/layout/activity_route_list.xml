@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ViewRoutes" >
+    
+ <TextView 
+        android:id="@+id/route_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_margin="10dp"        
+        android:textColor="#3079ed"
+        android:textSize="18sp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/route_available" />
+ 
+<fragment 
           android:id="@+id/entry_list"
           android:name="com.ptts.fragments.RouteListFragment"
           android:layout_width="match_parent"
@@ -9,4 +26,7 @@
           android:layout_marginLeft="16dp"
           android:layout_marginRight="16dp"
           tools:context=".ViewRoutes"
+          android:layout_below="@+id/route_id"
           tools:layout="@android:layout/list_content" />
+
+          </RelativeLayout>

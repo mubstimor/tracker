@@ -34,6 +34,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.ptts.R;
 import com.ptts.accounts.GenericAccountService;
@@ -89,6 +90,7 @@ public class RouteListFragment extends ListFragment
      */
     private static final String[] PROJECTION = new String[]{
             FeedContract.Entry._ID,
+            FeedContract.Entry.COLUMN_NAME_ENTRY_ID,
             FeedContract.Entry.COLUMN_NAME_NAME,
             FeedContract.Entry.COLUMN_NAME_START,
             FeedContract.Entry.COLUMN_NAME_END,
@@ -98,9 +100,9 @@ public class RouteListFragment extends ListFragment
     // Column indexes. The index of a column in the Cursor is the same as its relative position in
     // the projection.
     /** Column index for _ID */
-    private static final int COLUMN_ID = 0;    
-    private static final int COLUMN_ROUTE_NAME = 1;    
-    private static final int COLUMN_ROUTE_STOPS = 4;
+    private static final int COLUMN_ROUTE_ID = 1;    
+    private static final int COLUMN_ROUTE_NAME = 2;    
+    private static final int COLUMN_ROUTE_STOPS = 5;
     
     /**
      * List of Cursor columns to read from when preparing an adapter to populate the ListView.
@@ -263,7 +265,7 @@ public class RouteListFragment extends ListFragment
         // Get the item at the selected position, in the form of a Cursor.
         Cursor c = (Cursor) mAdapter.getItem(position);
         // Get the link to the article represented by the item.
-        String routeId = c.getString(COLUMN_ID);
+        String routeId = c.getString(COLUMN_ROUTE_ID);
         String routeName = c.getString(COLUMN_ROUTE_NAME);
         String routeStops = c.getString(COLUMN_ROUTE_STOPS);
         if (routeId == null) {
@@ -272,7 +274,7 @@ public class RouteListFragment extends ListFragment
         }
 
         Log.i(TAG, "Opening ROUTE ID: " + routeId);
-//        Toast.makeText(getActivity(), "Pressed Item in "+routeId+" : "+routeName+"->"+routeStops, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Route ID "+routeId, Toast.LENGTH_SHORT).show();
        
         Intent i = new Intent(getActivity(), RouteDetails.class);
         i.putExtra("route_name", routeName);

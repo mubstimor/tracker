@@ -35,7 +35,7 @@ public class MenuListFragment extends ListFragment {
 		adapter.add(new MenuItem("Search For Stages", android.R.drawable.ic_menu_search));
 		adapter.add(new MenuItem("Provide Feedback", R.drawable.ic_action_mail_add));
 		adapter.add(new MenuItem("Product Tour", android.R.drawable.ic_menu_search));
-		adapter.add(new MenuItem("Settings", R.drawable.ic_action_settings));
+		adapter.add(new MenuItem("Settings", R.drawable.ic_action_settings));		
 		//adapter.add(new MenuItem("Syncing", android.R.drawable.ic_menu_search));	
 				
 		setListAdapter(adapter);
@@ -62,9 +62,9 @@ public class MenuListFragment extends ListFragment {
 			cls = SettingsActivity.class;	
 		}
 //		else if (id == 5) {
-//			cls = ViewRoutes.class;	
+//			cls = SpeedActivity.class;	
 //		}
-		
+//		
 		Intent intent = new Intent(getActivity(), cls);
 		startActivity(intent);		
 	}

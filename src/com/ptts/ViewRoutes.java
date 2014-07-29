@@ -17,7 +17,7 @@ public class ViewRoutes extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route_list);
-        
+  
      // configure the SlidingMenu
      		menu = new SlidingMenu(this);
      		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
@@ -32,4 +32,15 @@ public class ViewRoutes extends FragmentActivity {
      		.replace(R.id.menu_frame, new MenuListFragment())
      		.commit();
     }
+    
+    @Override
+	public void onBackPressed() {
+		if (menu.isMenuShowing()) {
+			menu.showContent();
+		} else {
+			super.onBackPressed();
+		}
+	}
+  
+       
 }
